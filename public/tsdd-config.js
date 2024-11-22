@@ -1,5 +1,5 @@
 var TSDD_CONFIG = {
-  APP_URL: 'https://api.botgate.cn/v1/'
+  APP_URL: 'http://td-api.8h2ik.icu/v1/'
 };
 
 window.TSDD_CONFIG = TSDD_CONFIG;

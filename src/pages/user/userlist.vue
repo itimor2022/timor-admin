@@ -71,7 +71,7 @@ import { ElButton, ElSpace, ElAvatar, ElDropdown, ElDropdownMenu, ElDropdownItem
 import { useUserStore } from '@/stores/modules/user';
 import { BU_DOU_CONFIG } from '@/config';
 // API 接口
-import { userListGet, userLiftbanPut } from '@/api/user';
+import { userListGet, userLiftbanPut,userPwdForget } from '@/api/user';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -185,6 +185,10 @@ const column = reactive<Column.ColumnOptions[]>([
               dropdown: () => {
                 return (
                   <ElDropdownMenu>
+                    <ElDropdownItem onClick={() => onResetPwd(scope.row)}>
+                      <i-bd-every-user class={'mr-4px'} />
+                      重置密码
+                    </ElDropdownItem>
                     <ElDropdownItem onClick={() => onFriends(scope.row)}>
                       <i-bd-every-user class={'mr-4px'} />
                       好友列表
@@ -302,6 +306,45 @@ const onUseLiftban = (item: any) => {
           ElMessage({
             type: 'success',
             message: `${text}用户成功！`
+          });
+        })
+        .catch(err => {
+          if (err.status == 400) {
+            ElMessage.error(err.msg);
+          }
+        });
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '取消成功！'
+      });
+    });
+};
+
+// 重置密码
+const onResetPwd = (item: any) => {
+  const pwd = '123456';
+  const text = '重置密码';
+  ElMessageBox.confirm(`确定要重置用户 ${item.name} 的密码为 ${pwd} 吗`, `${text}`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    closeOnClickModal: false,
+    type: 'warning'
+  })
+    .then(() => {
+      const fromResetPwd = {
+        zone: item.username.substring(0,4),
+        phone: item.username.substring(4),
+        code: "888888",
+        pwd: pwd
+      };
+      userPwdForget(fromResetPwd)
+        .then((_res: any) => {
+          getUserList();
+          ElMessage({
+            type: 'success',
+            message: `${text}成功！`
           });
         })
         .catch(err => {

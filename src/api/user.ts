@@ -52,3 +52,12 @@ export function userLiftbanPut(params: any) {
     method: 'put'
   });
 }
+
+// 重置密码/忘记密码
+export function userPwdForget(data: any) {
+  return request({
+    url: `user/pwdforget`,
+    method: 'post',
+    data
+  });
+}
