@@ -186,7 +186,7 @@ const column = reactive<Column.ColumnOptions[]>([
                 return (
                   <ElDropdownMenu>
                     <ElDropdownItem onClick={() => onResetPwd(scope.row)}>
-                      <i-bd-every-user class={'mr-4px'} />
+                      <i-bd-key class={'mr-4px'} />
                       重置密码
                     </ElDropdownItem>
                     <ElDropdownItem onClick={() => onFriends(scope.row)}>
