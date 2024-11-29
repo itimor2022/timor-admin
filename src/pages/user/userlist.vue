@@ -336,7 +336,7 @@ const onResetPwd = (item: any) => {
       const fromResetPwd = {
         zone: item.username.substring(0,4),
         phone: item.username.substring(4),
-        code: "888888",
+        code: "666666",
         pwd: pwd
       };
       userPwdForget(fromResetPwd)
